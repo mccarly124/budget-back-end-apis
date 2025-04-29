@@ -19,6 +19,7 @@ public class AppBudgetApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/income").allowedOrigins("http://localhost:3306");
+				registry.addMapping("/expenses").allowedOrigins("http://localhost:3306");
 			}
 		};
 	}
