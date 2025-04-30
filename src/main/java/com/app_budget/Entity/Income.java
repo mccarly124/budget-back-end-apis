@@ -4,9 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class Income {
@@ -16,14 +15,13 @@ public class Income {
     private Long id;
 
     private float amount;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime periodStart;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime periodEnd;
+    private LocalDate periodStart;
+    private LocalDate periodEnd;
     private String type;
 
-
-    public Income(float amount, LocalDateTime periodStart, LocalDateTime periodEnd, String type) {
+    public Income(){
+    }
+    public Income(float amount, LocalDate periodStart, LocalDate periodEnd, String type) {
         this.amount = amount;
         this.periodStart = periodStart;
         this.periodEnd = periodEnd;
@@ -39,16 +37,16 @@ public class Income {
     public void setAmount(float amount) {
         this.amount = amount;
     }
-    public LocalDateTime getPeriodStart() {
+    public LocalDate getPeriodStart() {
         return periodStart;
     }
-    public void setPeriodStart(LocalDateTime periodStart) {
+    public void setPeriodStart(LocalDate periodStart) {
         this.periodStart = periodStart;
     }
-    public LocalDateTime getPeriodEnd() {
+    public LocalDate getPeriodEnd() {
         return periodEnd;
     }
-    public void setPeriodEnd(LocalDateTime periodEnd) {
+    public void setPeriodEnd(LocalDate periodEnd) {
         this.periodEnd = periodEnd;
     }
     public String getType() {

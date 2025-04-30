@@ -5,8 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -18,11 +17,14 @@ public class Expense {
     private String category;
     private String subcategory;
     private double price;
-    private LocalDateTime date;
+    private LocalDate date;
     private boolean split;
     private String note;
 
-    public Expense(String category, String subcategory, double price, LocalDateTime date, boolean split, String note) {
+    public Expense(){
+    }
+
+    public Expense(String category, String subcategory, double price, LocalDate date, boolean split, String note) {
         this.category = category;
         this.subcategory = subcategory;
         this.price = price;
@@ -55,11 +57,11 @@ public class Expense {
     public void setPrice(double price) {
         this.price = price;
     }
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
     public boolean isSplit() {
