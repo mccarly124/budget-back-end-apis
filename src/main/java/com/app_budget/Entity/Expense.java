@@ -5,11 +5,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
 @Entity
-public class Expenses {
+public class Expense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,9 +18,18 @@ public class Expenses {
     private String category;
     private String subcategory;
     private double price;
-    private Date date;
+    private LocalDateTime date;
     private boolean split;
     private String note;
+
+    public Expense(String category, String subcategory, double price, LocalDateTime date, boolean split, String note) {
+        this.category = category;
+        this.subcategory = subcategory;
+        this.price = price;
+        this.date = date;
+        this.split = split;
+        this.note = note;
+    }
 
     public Long getId() {
         return id;
@@ -45,11 +55,11 @@ public class Expenses {
     public void setPrice(double price) {
         this.price = price;
     }
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
     public boolean isSplit() {
@@ -64,4 +74,18 @@ public class Expenses {
     public void setNote(String note) {
         this.note = note;
     }
+
+    @Override
+    public String toString() {
+        return "Expenses{" +
+                "id=" + id +
+                ", category='" + category + '\'' +
+                ", subcategory='" + subcategory + '\'' +
+                ", price=" + price +
+                ", date=" + date +
+                ", split=" + split +
+                ", note='" + note + '\'' +
+                '}';
+    }
+
 }
