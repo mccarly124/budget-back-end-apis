@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Entity
 public class Income {
 
@@ -18,14 +21,16 @@ public class Income {
     private LocalDate periodStart;
     private LocalDate periodEnd;
     private String type;
+    private String user;
 
     public Income(){
     }
-    public Income(float amount, LocalDate periodStart, LocalDate periodEnd, String type) {
+    public Income(float amount, LocalDate periodStart, LocalDate periodEnd, String type, String user) {
         this.amount = amount;
         this.periodStart = periodStart;
         this.periodEnd = periodEnd;
         this.type = type;
+        this.user = user;
     }
 
     public Long getId() {
@@ -55,15 +60,23 @@ public class Income {
     public void setType(String type) {
         this.type = type;
     }
+    public String getUser() {
+        return user;
+    }
+    public void setUser(String user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
-        return "Income{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", periodStart=" + periodStart +
-                ", periodEnd=" + periodEnd +
-                ", type='" + type + '\'' +
-                '}';
+        String expenseString = null;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+        try {
+            expenseString = mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return expenseString;
     }
 }
