@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Entity
 public class Expense {
@@ -18,19 +21,19 @@ public class Expense {
     private String subcategory;
     private double price;
     private LocalDate date;
-    private boolean split;
     private String note;
+    private String user;
 
     public Expense(){
     }
 
-    public Expense(String category, String subcategory, double price, LocalDate date, boolean split, String note) {
+    public Expense(String category, String subcategory, double price, LocalDate date, String note, String user) {
         this.category = category;
         this.subcategory = subcategory;
         this.price = price;
         this.date = date;
-        this.split = split;
         this.note = note;
+        this.user = user;
     }
 
     public Long getId() {
@@ -64,30 +67,33 @@ public class Expense {
     public void setDate(LocalDate date) {
         this.date = date;
     }
-    public boolean isSplit() {
-        return split;
-    }
-    public void setSplit(boolean split) {
-        this.split = split;
-    }
+    
     public String getNote() {
         return note;
     }
     public void setNote(String note) {
         this.note = note;
     }
+    public String getUser() {
+        return user;
+    }
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+
 
     @Override
     public String toString() {
-        return "Expenses{" +
-                "id=" + id +
-                ", category='" + category + '\'' +
-                ", subcategory='" + subcategory + '\'' +
-                ", price=" + price +
-                ", date=" + date +
-                ", split=" + split +
-                ", note='" + note + '\'' +
-                '}';
+        String expenseString = null;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+        try {
+            expenseString = mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return expenseString;
     }
 
 }
